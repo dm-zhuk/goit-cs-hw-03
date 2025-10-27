@@ -1,35 +1,35 @@
-version: "3"
-
 services:
-  web:
-    build: .
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/hw02
-      - PORT=8000
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-    networks:
-      - app-network
-
   db:
     image: postgres:15
+    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=hw02
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 456123
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    command: postgres -c listen_addresses='*'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  init:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: 456123
+      DB_NAME: task_management
 
 volumes:
   postgres_data:
-
-networks:
-  app-network: {}
