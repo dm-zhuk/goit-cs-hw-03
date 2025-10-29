@@ -7,7 +7,7 @@ fake = Faker()
 
 # Параметри підключення до бази даних
 db_params = {
-    "dbname": "task_management",
+    "dbname": "task_manager",
     "user": "postgres",
     "password": "456123",
     "host": "localhost",

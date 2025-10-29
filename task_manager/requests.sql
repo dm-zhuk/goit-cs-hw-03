@@ -61,7 +61,7 @@ SELECT * FROM tasks WHERE id = 10;
 -- Знайти користувачів з певною електронною поштою
 SELECT fullname, email
 FROM users
-WHERE email LIKE '%@example.net';
+WHERE email LIKE '%@example.com';
 
 
 -- Оновити ім'я користувача

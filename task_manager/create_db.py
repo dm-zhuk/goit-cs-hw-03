@@ -7,8 +7,8 @@ from psycopg2 import OperationalError
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "")
-DB_NAME = os.getenv("DB_NAME", "task_management")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "456123")
+DB_NAME = os.getenv("DB_NAME", "task_manager")
 
 
 def wait_for_postgres(max_attempts=20, delay=2):
@@ -97,3 +97,6 @@ if __name__ == "__main__":
     wait_for_postgres()
     create_database()
     create_tables()
+
+
+# psql -h localhost -U postgres -d task_manager

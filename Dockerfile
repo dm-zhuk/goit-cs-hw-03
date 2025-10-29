@@ -4,6 +4,6 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir psycopg2-binary faker
 
-COPY create_db.py .
+COPY task_manager/create_db.py .
 
-CMD ["python3", "create_db.py"]
+CMD ["python3", "task_manager/create_db.py"]
